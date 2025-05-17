@@ -12,7 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set short SHA for commit ID
-        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+        shell: bash
+        run: 
+          echo "COMMIT_ID=${GITHUB_SHA::6}" >> "$GITHUB_ENV"
+
       -
         name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -24,4 +27,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ajaisam/python-app:${{ env.SHORT_SHA }}
+          tags: ajaisam/python-app:${{ env.COMMIT_ID }}
