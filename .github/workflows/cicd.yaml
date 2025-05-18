@@ -29,14 +29,13 @@ jobs:
           push: true
           tags: ajaisam/python-app:${{ env.COMMIT_ID }}
 
-jobs:
   cd:
     needs: ci
     runs-on: self-hosted
     steps:
       - name: Argocd App Sync
         shell: bash
-        run: 
+        run: |
           argocd login argocd-server.argocd \
             --insecure --grpc-web \
             --username admin \
