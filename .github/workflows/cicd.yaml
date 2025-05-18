@@ -37,7 +37,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Modify Values File
         shell: bash
         run: |
@@ -47,7 +47,7 @@ jobs:
       - name: Commit changes
         uses: Endbug/add-and-commit@v9
         with:
-          message: 'Update values.yaml with commmit {{needs.ci.outputs.commit_id}}''
+          message: 'Update values.yaml with commmit {{needs.ci.outputs.commit_id}}'
       - name: Install argocd
         shell: bash
         run: |
