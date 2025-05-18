@@ -9,6 +9,7 @@ on:
 
 jobs:
   ci:
+
     runs-on: ubuntu-latest
     steps:
       - name: Set short SHA for commit ID
@@ -28,11 +29,25 @@ jobs:
         with:
           push: true
           tags: ajaisam/python-app:${{ env.COMMIT_ID }}
+    outputs:
+      commit_id: ${{ env.COMMIT_ID }} 
 
   cd:
     needs: ci
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v3
+      
+      - name: Modify Values File
+        shell: bash
+        run: |
+          echo ${{needs.ci.outputs.commit_id}}
+          pip install yq
+          yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/python-app/vaules.yaml
+      - name: Commit changes
+        uses: Endbug/add-and-commit@v9
+        with:
+          message: 'Update values.yaml with commmit {{needs.ci.outputs.commit_id}}''
       - name: Install argocd
         shell: bash
         run: |
