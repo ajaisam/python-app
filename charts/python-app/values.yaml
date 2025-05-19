@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: ajaisam/python-app
   pullPolicy: IfNotPresent
-  tag: "6c5bbe"
+  tag: "987beb"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
